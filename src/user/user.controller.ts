@@ -1,7 +1,16 @@
-import { Controller, Post, Body, Get, Put, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  Get,
+  Put,
+  Delete,
+  UseGuards,
+} from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { UserService } from './user.service';
 import { UserEntity, UserEntityDataType } from './user.entity';
+import { AuthGuard } from 'src/guard/auth.guard';
 @Controller('user')
 export class UserController {
   constructor(
@@ -18,7 +27,7 @@ export class UserController {
   async createUser(@Body() data: UserEntityDataType): Promise<UserEntity> {
     return await this.userService.createUser(data);
   }
-
+  // @UseGuards(AuthGuard)
   @Get()
   async userList(): Promise<UserEntity[]> {
     return await this.userService.userList();

@@ -5,7 +5,6 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   DeepPartial,
-  OneToMany,
   ManyToOne,
 } from 'typeorm';
 import { UserEntity } from 'src/user/user.entity';
