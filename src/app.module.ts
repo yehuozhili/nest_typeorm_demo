@@ -11,6 +11,7 @@ import { LogMiddleware } from './middlewares/log.middleware';
 import { UserController } from './user/user.controller';
 import { AuthGuard } from './guard/auth.guard';
 import { APP_GUARD } from '@nestjs/core';
+import { ValidationPipe } from '@nestjs/common';
 
 @Module({
   imports: [

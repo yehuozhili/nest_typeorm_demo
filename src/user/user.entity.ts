@@ -11,6 +11,7 @@ import {
 } from 'typeorm';
 import { Posts } from 'src/posts/post.entity';
 import { Roles } from 'src/roles/roles.entity';
+import { Exclude, Expose } from 'class-transformer';
 
 @Entity({ name: 'user' })
 export class UserEntity {
@@ -31,6 +32,7 @@ export class UserEntity {
   })
   username: string;
 
+  @Exclude() // 排除返回字段,不返回给前端
   @Column({
     type: 'varchar',
     nullable: false,
@@ -62,6 +64,12 @@ export class UserEntity {
     comment: '更新时间',
   })
   updateAt: Date;
+
+  @Expose()
+  isDelStr(): string {
+    console.log('ssssssssss');
+    return this.isDel ? '删除' : '正常';
+  }
 
   @OneToMany(
     () => Posts,

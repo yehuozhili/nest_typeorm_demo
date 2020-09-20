@@ -11,6 +11,8 @@ import { ConfigService } from '@nestjs/config';
 import { UserService } from './user.service';
 import { UserEntity, UserEntityDataType } from './user.entity';
 import { AuthGuard } from 'src/guard/auth.guard';
+import { CreateUserTdo } from './dto/create.user.dto';
+import { plainToClass } from 'class-transformer';
 @Controller('user')
 export class UserController {
   constructor(
@@ -24,8 +26,10 @@ export class UserController {
     console.log(dbUser, dbHost);
   }
   @Post()
-  async createUser(@Body() data: UserEntityDataType): Promise<UserEntity> {
-    return await this.userService.createUser(data);
+  async createUser(@Body() data: CreateUserTdo): Promise<UserEntity> {
+    const data2 = await this.userService.createUser(data);
+    const ret = plainToClass(UserEntity, data2);
+    return ret;
   }
   // @UseGuards(AuthGuard)
   @Get()
